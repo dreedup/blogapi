@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
-const jwt = reuiqre('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 exports.auth = async (req, res, next) =>{
     try {
@@ -30,26 +30,27 @@ exports.createUser = async (req, res) => {
     }
     }
 
-    exports.loginUser = async(req, res) => {
-        try {
-            const user = await User.findOne({username: req.body.username})
-            if(!user || !await bcrypt.compare(req.body.password, user.password)){
-                throw new Error('WRONG! try again')
-            }else{
-                const token = await user.generateAuthToken()
-                res.json({user, token})
-            }
-        } catch (error) {
-            res.status(400).json({message: error.message})
+    exports.loginUser = async (req, res) => {
+        try{
+          const user = await User.findOne({ email: req.body.email })
+          if (!user || !await bcrypt.compare(req.body.password, user.password)) {
+            res.status(400).send('Invalid login credentials')
+          } else {
+            const token = await user.generateAuthToken()
+            res.json({ user, token })
+          }
+        } catch(error){
+          res.status(400).json({message: error.message})
         }
-    }
+      }
 
     exports.updateUser = async (req, res) => {
         try {
-            const update = Object.keys(req.body)
-            update.forEach(update => req.user[update] = req.body[update])
+            const updates = Object.keys(req.body)
+            const user = await User.findOne({ _id: req.params.id })
+            updates.forEach(update => req.user[update] = req.body[update])
             await req.user.save()
-            res.json(user)
+            res.json(req.user)
         } catch (error) {
             res.status(400).json({message: error.message})
         }
@@ -68,8 +69,39 @@ exports.createUser = async (req, res) => {
         try {
             req.user.isLoggedIn = false
             await req.user.save()
-            res.json({message: 'Logged out bud'})
+            res.json({message: 'Youre Out!'})
         } catch (error) {
             res.status(400).json({message: error.message})
         }
     }
+
+    exports.getAllUsers = async (req, res) => {
+        try {
+          const users = await User.find();
+          res.json(users);
+        } catch (error) {
+          res.status(400).json({ message: error.message });
+        }
+      };
+      
+      exports.findUser = async (req, res) => {
+        const searchTerm = req.query.searchTerm;
+      
+        try {
+          const user = await User.findOne({
+            $or: [
+              { name: searchTerm },
+              { email: searchTerm },
+              { _id: searchTerm },
+            ],
+          });
+      
+          if (!user) {
+            throw new Error('User not found');
+          }
+      
+          res.json(user);
+        } catch (error) {
+          res.status(404).json({ message: error.message });
+        }
+      };
