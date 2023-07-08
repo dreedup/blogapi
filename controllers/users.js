@@ -10,7 +10,7 @@ exports.auth = async (req, res, next) =>{
         const data = jwt.verify(token, process.env.SECRET)
         const user = await User.findOne({_id: data._id})
         if(!user){
-            throw new Error ('bad credentials ')
+            throw new Error ('bad credentials')
         }
         req.user = user
         next()
