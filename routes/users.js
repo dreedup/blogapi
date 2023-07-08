@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/users')
 
-router.use(userController.auth);
-
 router.post('/', userController.createUser)
 router.post('/login', userController.loginUser)
 router.put('/:id', userController.auth, userController.updateUser)
