@@ -4,7 +4,7 @@ In this API, A Blog API, you are able to create, update, delete and see all blog
 
 This API is created by using Node, Express, and MongoDB.
 
-#Are You Ready?
+# Are You Ready?
 
 Before beginning this project you must check to see if you have Node.js installed as well as Nodemon.
 
@@ -13,7 +13,7 @@ To Install you can follow the following instructions.
 - Open your terminal and run the following command
 ```npm instal - nodemon```
 
-#To get started
+# To get started
 
 1. Clone this repository by clicking on the <> Code button
 2. Open your terminal and create a folder youd like to clone this app to
@@ -25,12 +25,12 @@ To Install you can follow the following instructions.
 8. install the necessary packages by running npm install (express mongoose dotenv bcrypt jsonwebtoken morgan --save-dev jest supertest mongodb-memorey-server artillery@1.7.9 )
 9. start the app by running rpm run dev
 
-#Testing
+# Testing
 
 1. Run in terminal testing by just pushing the following command ```npm run test``
 2. Run ```npm run load```
 
-#Manual Testing
+# Manual Testing
 
 From here we can open Postman to run the same test but manually.
 
@@ -40,4 +40,7 @@ From here we can open Postman to run the same test but manually.
     - set to raw and JSON
     - fill in require strings {"name": , "email": , "password":  }
     - press send
+  
+# Wireframe
 
+![IMG_0546](https://github.com/dreedup/blogapi/assets/127633342/51645846-de90-4803-9913-a9305e907a28)
