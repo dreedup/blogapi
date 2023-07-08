@@ -19,11 +19,13 @@ To Install you can follow the following instructions.
 2. Open your terminal and create a folder youd like to clone this app to
 3. From there run git clone plus the SSH key
 4. cd into your folder
-5. run 'code .' to open your files in VS code.
-6. From here you shoukd create an .env file
-7. In this env file you will place your own private MONGO_URI
-8. install the necessary packages by running npm install (express mongoose dotenv bcrypt jsonwebtoken morgan --save-dev jest supertest mongodb-memorey-server artillery@1.7.9 )
-9. start the app by running rpm run dev
+5. install the necessary packages by running npm install (express mongoose dotenv bcrypt jsonwebtoken morgan --save-dev jest supertest mongodb-memorey-server artillery@1.7.9 )
+7. From here you shoukd create an .env file as well as a .gitignore file
+8. run 'code .' to open your files in VS code.
+9. In the env file you will place your own private MONGO_URI
+10. in the .gitignore file add the following "node_modules/
+.env"
+11. start the app by running rpm run dev
 
 # Testing
 
