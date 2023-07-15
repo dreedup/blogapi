@@ -44,3 +44,59 @@ describe('Test the users endpoints', () => {
     })
 
 })
+test('Should update user', async () => {
+    const user = new User ({
+        name: 'andre',
+        email: 'adr@gmail.com',
+        password: 'pass'
+    })
+    await user.save()
+    const token = await user.generateAuthToken()
+
+    const response = await request(app)
+        .put(`/users/${user._id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+            name: 'graehm',
+            email: 'adrupdate@gmail.com',
+            password: 'pass'
+        })
+        expect(response.statusCode).toBe(200)
+})
+
+test('Should delete user', async () => {
+    const user = new User ({
+        name: 'andre',
+        email: 'adr@gmail.com',
+        password: 'pass'
+    })
+    await user.save()
+    const token = await user.generateAuthToken()
+
+    const response = await request(app)
+        .delete(`/users/${user._id}`)
+        .set('Authorization', `Bearer ${token}`)
+
+    expect(response.statusCode).toBe(204)
+})
+
+test('Should logout user', async () => {
+    const user = new User({
+      name: 'andre',
+      email: 'adr@gmail.com',
+      password: 'pass'
+    });
+  
+    await user.save();
+  
+    const token = await user.generateAuthToken();
+  
+    const response = await request(app)
+      .post(`/users/logout/${user._id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({});
+  
+    expect(response.statusCode).toBe(200);
+    expect(response.body.message).toEqual('Youre Out!');
+  });
+  
